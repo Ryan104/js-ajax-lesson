@@ -87,15 +87,34 @@ li img {
   font-size: 1.2em;
 }
 
-.deleteButton{
-  border: none;
-  
-  
-  color: white;
-  font-size: 1em;
-  background-color: red;
-  cursor: pointer;
-  margin-left: auto;
+.cat-buttons {
   align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
 }
 
+.deleteButton, .editButton{
+  border: none;
+  color: white;
+  width: 30px;
+  font-size: 1em;
+  cursor: pointer;
+  
+}
+
+.deleteButton {
+  background-color: #a55;
+}
+
+.deleteButton:hover {
+  background-color: #e11;  
+}
+
+.editButton {
+  background-color: #5a5;
+}
+
+.editButton:hover {
+  background-color: #1e1;  
+}

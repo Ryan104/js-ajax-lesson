@@ -10,8 +10,12 @@ class Cat {
   }
 }
 
+getCats();
+
+// ---- INDEX (get em all) ---- //
+
 function getCats(){
-  let catsArr;
+  // GET all the cats from the API and update the page with displayAllCats()
   $.get(CAT_URL).done((data) => { displayAllCats(JSON.parse(data)) });
 }
 
@@ -27,11 +31,15 @@ function displayAllCats(catsArr){
           <div class="list-cat-name">${cat.name}</div>
           <div class="list-cat-note">${cat.note}</div>
         </div>
-        <button class="deleteButton">X</button>
+        <div class="cat-buttons">
+          <button class="deleteButton"><i class="fa fa-trash" aria-hidden="true"></i></button>
+          <button class="editButton"><i class="fa fa-pencil" aria-hidden="true"></i></button>  
+        </div>      
       </li>`);
   });
 }
 
+// ---- CREATE (new cat!) ---- //
 
 function postACat(cat){
   $.ajax({
@@ -39,20 +47,6 @@ function postACat(cat){
     url: CAT_URL,
     data: JSON.stringify(cat)
   });
-}
-
-$('ul').on('click', '.deleteButton', deleteACat);
-
-function deleteACat(){
-  console.log($(this).parent().attr('cat-id'));
-
-  $.ajax({
-    url: CAT_URL + '/' + $(this).parent().attr('cat-id'),
-    method: 'DELETE',
-  }).done((response) => { getCats() });
-
-
-  
 }
 
 $('#new-cat').submit((event) => {
@@ -67,5 +61,16 @@ $('#new-cat').submit((event) => {
   event.preventDefault(); // Keep the page from refreshing
 });
 
-getCats();
+// ---- DELETE (adopt a cat) ---- //
+
+$('ul').on('click', '.deleteButton', deleteACat);
+
+function deleteACat(){
+  console.log($(this).parent().parent().attr('cat-id'));
+
+  $.ajax({
+    url: CAT_URL + '/' + $(this).parent().parent().attr('cat-id'),
+    method: 'DELETE',
+  }).done((response) => { getCats() });
+}
 
