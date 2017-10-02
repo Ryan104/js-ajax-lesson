@@ -1,13 +1,62 @@
   // Get all cats and spit out the JSON collection in the console
-  $.get('https://ga-cat-rescue.herokuapp.com/api/cats')
-    .done(function(data){
-      console.log(data);
+  const CAT_URL = 'https://ga-cat-rescue.herokuapp.com/api/cats';
+
+
+  function getCats(){
+    let catsArr;
+    $.get(CAT_URL)
+      .done(function(data){
+        displayAllCats(JSON.parse(data));
+      });
+  }
+
+  function displayAllCats(catsArr){
+    $('#cats').empty();
+    catsArr.map((cat) => {
+      $('#cats').append(`<li>${cat.name} - ${cat.note}</li>`);
     });
+  }
+
+  class Cat {
+    constructor(name, note){
+      this.name = name;
+      this.note = note;
+    }
+  }
+
+  function postACat(cat){
+    $.ajax({
+      method: 'POST',
+      url: CAT_URL,
+      data: JSON.stringify(cat)
+    });
+  }
+
+  $('#new-cat').submit((event) => {
+    let cat = new Cat($('#cat-name').val(), $('#cat-note').val());
+    console.log(cat); 
+    postACat(cat);
+    getCats();
+    event.preventDefault(); // Keep the page from refreshing
+  });
+
+getCats();
+
+
+  
 
   // Now, get a single cat and spit out the JSON in the console
+  // $.get('https://ga-cat-rescue.herokuapp.com/api/cats/22')
+  //   .done((data) => {
+  //     console.log(data);
+  //   });
 
 
   // Use the more generic $.ajax to do the same request
+  // $.ajax({
+  //   method: 'GET',
+  //   url: 'https://ga-cat-rescue.herokuapp.com/api/cats/22'
+  // }).done((data) => (console.log('ajax: ' + data)));
   
 
   // Modify that cat by changing its name
