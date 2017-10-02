@@ -24,6 +24,16 @@ h1:before {
   display: block;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form * {
+  width: 200px;
+  margin: 8px auto;
+}
+
 form, form input {
   font-size: 1rem;
 }
@@ -53,6 +63,39 @@ form input[type=submit]:hover{
 
 ul {
   text-align: left;
-  max-width: 300px;
+  max-width: 400px;
   margin: 2rem auto;
+  list-style: none;
 }
+
+li {
+  display: flex;
+  margin: 10px 0;
+  padding: 5px 0 5px 10px;
+  background-color: #fff;
+  box-shadow: 2px 2px 5px #000
+}
+
+li img {
+  max-height: 100px;
+  max-width: 100px;
+  margin: 0 10px 0 0;
+}
+
+.list-cat-name {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.deleteButton{
+  border: none;
+  
+  
+  color: white;
+  font-size: 1em;
+  background-color: red;
+  cursor: pointer;
+  margin-left: auto;
+  align-self: flex-start;
+}
+
